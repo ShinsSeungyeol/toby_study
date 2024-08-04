@@ -16,9 +16,7 @@ public class UserDao {
    * @throws SQLException
    */
   public void add(User user) throws ClassNotFoundException, SQLException {
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/springbook?allowPublicKeyRetrieval=true&useSSL=false", "seungyeol",
-        "1234");
+    Connection c = getConnection();
 
     PreparedStatement ps = c.prepareStatement(
         "insert into users(id, name, password) values(?, ?, ?)");
@@ -39,8 +37,7 @@ public class UserDao {
    * @throws SQLException
    */
   public User get(String id) throws ClassNotFoundException, SQLException {
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    Connection c = DriverManager.getConnection("jdbc:mysql://localhost/springbook?allowPublicKeyRetrieval=true&useSSL=false", "seungyeol", "1234");
+    Connection c = getConnection();
 
     PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
     ps.setString(1, id);
@@ -58,6 +55,17 @@ public class UserDao {
     c.close();
 
     return user;
+  }
+
+  /**
+   * JDBC Connection 객체 리턴
+   * @return
+   * @throws ClassNotFoundException
+   * @throws SQLException
+   */
+  private Connection getConnection() throws ClassNotFoundException, SQLException {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    return DriverManager.getConnection("jdbc:mysql://localhost/springbook?allowPublicKeyRetrieval=true&useSSL=false", "seungyeol", "1234");
   }
 
   public static void main(String[] args) throws ClassNotFoundException, SQLException {
