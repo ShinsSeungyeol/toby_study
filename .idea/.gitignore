@@ -16,6 +16,10 @@
 # idea 설정
 .idea
 
+checkstyle-idea.xml
+encodings.xml
+modules.xml
+
 toby.iml
 
 
