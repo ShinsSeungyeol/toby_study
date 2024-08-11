@@ -3,9 +3,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="connectionMaker" class="springbook.user.dao.SimpleConnectionMaker">
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+    <property name="driverClass" value = "com.mysql.cj.jdbc.Driver"></property>
+    <property name = "url" value = "jdbc:mysql://localhost:3306/springbook?allowPublicKeyRetrieval=true&amp;useSSL=false" />
+    <property name = "username" value="seungyeol" />
+    <property name="password" value="1234"/>
   </bean>
   <bean id="userDao" class="springbook.user.dao.UserDao">
-    <constructor-arg name="connectionMaker" ref="connectionMaker"></constructor-arg>
+    <constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
   </bean>
 </beans>

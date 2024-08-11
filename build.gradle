@@ -20,9 +20,9 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'com.mysql:mysql-connector-j'
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '6.1.11'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
     compileOnly 'org.springframework:spring-context'
 }
 
