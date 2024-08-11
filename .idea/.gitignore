@@ -15,6 +15,7 @@
 
 # idea 설정
 .idea/*
+.gradle/*
 
 checkstyle-idea.xml
 encodings.xml
