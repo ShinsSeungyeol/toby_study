@@ -14,7 +14,7 @@
 /out/
 
 # idea 설정
-.idea/*
+.idea
 .gradle/*
 
 checkstyle-idea.xml
