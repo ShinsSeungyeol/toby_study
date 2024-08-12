@@ -1,16 +1,24 @@
 package springbook.user.dao;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.sql.SQLException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import springbook.user.domain.User;
 
 public class UserDaoTest {
 
-  public static void main(String[] args) throws ClassNotFoundException, SQLException {
+  @Test
+  public void 등록_조회() throws SQLException {
     ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 
     UserDao dao = context.getBean("userDao", UserDao.class);
+
+    dao.deleteAll();
+    assertEquals(dao.getCount(),0);
 
     User user = new User();
     user.setId("whiteship");
@@ -18,14 +26,13 @@ public class UserDaoTest {
     user.setPassword("married");
 
     dao.add(user);
+    assertEquals(dao.getCount(),1);
 
-    System.out.println(user.getId() +  " 등록 성공");
+    User foundUser = dao.get(user.getId());
 
-    User user2 = dao.get(user.getId());
-    System.out.println(user2.getName());
-    System.out.println(user2.getPassword());
-
-    System.out.println(user.getId() +  " 조회 성공");
+    assertEquals(user.getId(), foundUser.getId());
+    assertEquals(user.getName(), foundUser.getName());
+    assertEquals(user.getPassword(), foundUser.getPassword());
   }
 
 }
