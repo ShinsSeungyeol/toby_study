@@ -14,26 +14,26 @@ import springbook.user.domain.User;
 public class UserDaoTest {
   private UserDao dao;
 
+  /** fixture 유저 */
+  private User user1;
+  private User user2;
+  private User user3;
+
+
   @BeforeEach
   public void setUp() throws SQLException {
     ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
     dao = context.getBean("userDao", UserDao.class);
     dao.deleteAll();
 
+    user1 = new User("gyumee", "박성철", "springno1");
+    user2 = new User("leegw700", "이길원", "springno2");
+    user3 = new User("bumjin", "박범진", "springno3");
   }
 
   @Test
   public void 등록_조회() throws SQLException {
     //given
-    User user1 = new User();
-    user1.setId("whiteship");
-    user1.setName("백기선");
-    user1.setPassword("married");
-
-    User user2 = new User();
-    user2.setId("leegw700");
-    user2.setName("이길원");
-    user2.setPassword("springno2");
 
     //when
     dao.add(user1);
@@ -57,10 +57,6 @@ public class UserDaoTest {
 
   @Test
   public void count() throws SQLException {
-    User user1 = new User("gyumee", "박성철", "springno1");
-    User user2 = new User("leegw700", "이길원", "springno2");
-    User user3 = new User("bumjin", "박범진", "springno3");
-
     dao.add(user1);
     assertEquals(dao.getCount(),1);
 
