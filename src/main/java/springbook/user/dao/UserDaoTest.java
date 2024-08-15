@@ -20,19 +20,35 @@ public class UserDaoTest {
     dao.deleteAll();
     assertEquals(dao.getCount(),0);
 
-    User user = new User();
-    user.setId("whiteship");
-    user.setName("백기선");
-    user.setPassword("married");
+    //given
+    User user1 = new User();
+    user1.setId("whiteship");
+    user1.setName("백기선");
+    user1.setPassword("married");
 
-    dao.add(user);
-    assertEquals(dao.getCount(),1);
+    User user2 = new User();
+    user2.setId("leegw700");
+    user2.setName("이길원");
+    user2.setPassword("springno2");
 
-    User foundUser = dao.get(user.getId());
+    //when
+    dao.add(user1);
+    dao.add(user2);
 
-    assertEquals(user.getId(), foundUser.getId());
-    assertEquals(user.getName(), foundUser.getName());
-    assertEquals(user.getPassword(), foundUser.getPassword());
+    //then
+    assertEquals(dao.getCount(), 2);
+
+    User foundUser1 = dao.get(user1.getId());
+
+    assertEquals(user1.getId(), foundUser1.getId());
+    assertEquals(user1.getName(), foundUser1.getName());
+    assertEquals(user1.getPassword(), foundUser1.getPassword());
+
+    User foundUser2 = dao.get(user2.getId());
+
+    assertEquals(user2.getId(), foundUser2.getId());
+    assertEquals(user2.getName(), foundUser2.getName());
+    assertEquals(user2.getPassword(), foundUser2.getPassword());
   }
 
   @Test
