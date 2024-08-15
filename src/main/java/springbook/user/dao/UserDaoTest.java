@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 import springbook.user.domain.User;
 
 public class UserDaoTest {
@@ -73,4 +74,19 @@ public class UserDaoTest {
     dao.add(user3);
     assertEquals(dao.getCount(),3);
   }
+
+  @Test
+  public void 사용자_아이디_없는_경우_예외() throws SQLException {
+    ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+    UserDao dao = context.getBean("userDao", UserDao.class);
+
+
+    dao.deleteAll();
+    assertEquals(dao.getCount(), 0);
+
+    assertThrows(EmptyResultDataAccessException.class, () ->
+      dao.get("unknown_id")
+    );
+  }
+
 }
